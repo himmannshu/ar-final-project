@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class ControllerScript : MonoBehaviour {
 	public GameObject bulletPrefab;
+	public int spawnDelay = 10;
+	int a;
 	
-	//Start is called before the first frame update
 	void Start() {
+		a = spawnDelay;
 	}
-
-	//Update is called once per frame
-	//https://developers.meta.com/horizon/documentation/unity/unity-tutorial-basic-controller-input#reference-script
-	void Update() {
-		if(OVRInput.Get(OVRInput.Button.Two)) {
-			Instantiate(bulletPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+	
+	void FixedUpdate() {
+		if(a <= 0 && OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger) > 0.5f) {
+			Instantiate(
+				bulletPrefab,
+				OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch) + (OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward),
+				OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch));
+			a = spawnDelay;
 		}
+		a--;
 	}
 }

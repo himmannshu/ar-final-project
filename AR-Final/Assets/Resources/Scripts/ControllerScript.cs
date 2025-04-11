@@ -16,14 +16,14 @@ public class ControllerScript : MonoBehaviour {
 		if(a <= 0 && OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger) > 0.5f) {
 			Instantiate(
 				bulletPrefab,
-				OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch) + (OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward),
+				OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch) + 0.2f * (OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward),
 				OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch));
 			a = spawnDelay;
 		}
 		if(b <= 0 && OVRInput.Get(OVRInput.RawAxis1D.LIndexTrigger) > 0.5f) {
 			Instantiate(
 				bulletPrefab,
-				OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch) + (OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch) * Vector3.forward),
+				OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch) + 0.2f * (OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch) * Vector3.forward),
 				OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch));
 			b = spawnDelay;
 		}

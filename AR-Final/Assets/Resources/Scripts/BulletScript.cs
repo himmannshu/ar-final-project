@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour {
+	public int damage = 10;
+	
+	float baseSpeed = 11f;
+	
 	Rigidbody rb;
-	float baseSpeed = 15f;
 	
 	void Start() {
 		rb = GetComponent<Rigidbody>();

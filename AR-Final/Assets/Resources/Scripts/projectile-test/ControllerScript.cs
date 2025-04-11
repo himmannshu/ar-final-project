@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class ControllerScript : MonoBehaviour {
 	public GameObject bulletPrefab;
-	public int spawnDelay = 10;
-	int a;
+	public int spawnDelay = 5;
+	int a, b;
 	
 	void Start() {
 		a = spawnDelay;
+		b = spawnDelay;
 	}
 	
 	void FixedUpdate() {
@@ -19,6 +20,14 @@ public class ControllerScript : MonoBehaviour {
 				OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch));
 			a = spawnDelay;
 		}
+		if(b <= 0 && OVRInput.Get(OVRInput.RawAxis1D.LIndexTrigger) > 0.5f) {
+			Instantiate(
+				bulletPrefab,
+				OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch) + (OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch) * Vector3.forward),
+				OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch));
+			b = spawnDelay;
+		}
 		a--;
+		b--;
 	}
 }

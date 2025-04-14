@@ -6,7 +6,7 @@ public class FloorSpawnner : MonoBehaviour
 {
     public FindSpawnPositions spawner;
     public float spawnInterval = 10f;
-    public float riseHeight = 2f;
+    public float riseHeight = 1f;
     public float riseDuration = 1f;
 
     private void Start()
@@ -49,7 +49,8 @@ public class FloorSpawnner : MonoBehaviour
 
     private IEnumerator RiseFromFloor(GameObject obj)
     {
-        Vector3 startPos = obj.transform.position;
+        Vector3 startPos = obj.transform.position - Vector3.up * riseHeight;
+        obj.transform.position = startPos; // Set the initial position below the floor
         Vector3 targetPos = startPos + Vector3.up * riseHeight;
         float elapsed = 0f;
 

@@ -9,13 +9,11 @@ public class EnemyMovementController : MonoBehaviour
     void Start()
     {
         cameraRig = FindObjectOfType<OVRCameraRig>();
-        Debug.Log("EnemyMovementController started"); // Log message for debugging
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("EnemyMovementController working!!!"); // Log message for debugging
         Vector3 targetPosition = cameraRig.transform.position;
 
         agent.SetDestination(targetPosition);

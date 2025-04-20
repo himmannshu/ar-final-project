@@ -11,16 +11,6 @@ public class FloorSpawnner : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(WaitForMRUKReady());
-    }
-
-    private IEnumerator WaitForMRUKReady()
-    {
-        while (MRUK.Instance.Rooms == null || MRUK.Instance.Rooms.Count == 0)
-        {
-            yield return null;
-        }
-
         StartCoroutine(SpawnLoop());
     }
 
@@ -49,7 +39,7 @@ public class FloorSpawnner : MonoBehaviour
 
     private IEnumerator RiseFromFloor(GameObject obj)
     {
-        Vector3 startPos = obj.transform.position - Vector3.up * riseHeight;
+        Vector3 startPos = obj.transform.position - 1.1f * Vector3.up * riseHeight;
         obj.transform.position = startPos; // Set the initial position below the floor
         Vector3 targetPos = startPos + Vector3.up * riseHeight;
         float elapsed = 0f;

@@ -11,12 +11,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/BasicXR.unity
     guid: 5a35033d6bb23df42ad3d6645238fc50
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/EnemySpawn.unity
     guid: d667db798d94347f3afa7b81e89044b0
   - enabled: 0
     path: Assets/Samples/Meta MR Utility Kit/74.0.2/Floor Zone/FindFloorZone.unity
     guid: a8727c5f8e126244f8aad80a6b14fe9b
+  - enabled: 1
+    path: Assets/Scenes/DifferentSpells.unity
+    guid: d80fa1d5ec295d04ca8daad891980ba3
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 3341dce34616d41d8a0688236facc506,
       type: 2}

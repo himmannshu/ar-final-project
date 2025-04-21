@@ -3,31 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ControllerScript : MonoBehaviour {
-	public GameObject bulletPrefab;
-	public int spawnDelay = 5;
-	int a, b;
+	public GameObject fireballPrefab, railbeamPrefab;
+	
+	OVRInput.Controller left, right;
+	Vector3 leftPos, rightPos,
+			leftForw, rightForw;
+	Quaternion leftRot, rightRot;
+	
+	int fireballCooldown, fireballDelay,
+		railgunCooldown, railgunDelay;
 	
 	void Start() {
-		a = spawnDelay;
-		b = spawnDelay;
+		//controller shorthand
+		left = OVRInput.Controller.LTouch;
+		right = OVRInput.Controller.RTouch;
+		
+		//spell cooldowns and delays
+		fireballCooldown = fireballPrefab.GetComponent<FireballScript>().cooldown;
+		fireballDelay = fireballCooldown;
+		
+		railgunCooldown = railbeamPrefab.GetComponent<RailbeamScript>().cooldown;
+		railgunDelay = railgunCooldown;
 	}
 	
 	void FixedUpdate() {
-		if(a <= 0 && OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger) > 0.5f) {
-			Instantiate(
-				bulletPrefab,
-				OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch) + 0.2f * (OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward),
-				OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch));
-			a = spawnDelay;
+		//controller properties
+		leftPos = OVRInput.GetLocalControllerPosition(left);
+		leftRot = OVRInput.GetLocalControllerRotation(left);
+		leftForw = leftRot * Vector3.forward;
+		
+		rightPos = OVRInput.GetLocalControllerPosition(right);
+		rightRot = OVRInput.GetLocalControllerRotation(right);
+		rightForw = rightRot * Vector3.forward;
+		
+		//left hand, shoot fireball
+		if(fireballDelay <= 0 && OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, left) > 0.5f) {
+			//cooldown
+			fireballDelay = fireballCooldown;
+			
+			//spawn
+			GameObject fireball = Instantiate(fireballPrefab, leftPos + 0.1f * leftForw, leftRot);
+			//TODO: throwing?
 		}
-		if(b <= 0 && OVRInput.Get(OVRInput.RawAxis1D.LIndexTrigger) > 0.5f) {
-			Instantiate(
-				bulletPrefab,
-				OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch) + 0.2f * (OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch) * Vector3.forward),
-				OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch));
-			b = spawnDelay;
+		
+		//right hand, shoot railgun
+		if(railgunDelay <= 0 && OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, right) > 0.5f) {
+			//cooldown
+			railgunDelay = railgunCooldown;
+			
+			//spawn
+			GameObject railbeam = Instantiate(railbeamPrefab, rightPos + (100.1f * rightForw), rightRot);
 		}
-		a--;
-		b--;
+		
+		//get ready to shoot again
+		if(fireballDelay > 0) fireballDelay--;
+		if(railgunDelay > 0) railgunDelay--;
 	}
 }

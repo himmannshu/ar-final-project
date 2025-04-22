@@ -14,8 +14,8 @@ public class EnemyMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetPosition = cameraRig.transform.position;
-
+        Vector3 targetPosition = cameraRig.centerEyeAnchor.position;
+        targetPosition.y = transform.position.y; // Keep the enemy at the same height
         agent.SetDestination(targetPosition);
         agent.speed = .75f; // Set the speed of the NavMeshAgent
     }

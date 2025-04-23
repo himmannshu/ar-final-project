@@ -555,6 +555,7 @@ MonoBehaviour:
   AgentMaxSlope: 5.5
   Agents:
   - {fileID: 1802233238546923299, guid: 13abe5551ba5ae34aa15c45df0f1c376, type: 3}
+  - {fileID: 2237681676045037604, guid: d9468d715d319464ab87af32ca85feb2, type: 3}
   NavigableSurfaces: 1
   SceneObstacles: 49150
   Layers:
@@ -585,6 +586,32 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1802233238546923299, guid: 13abe5551ba5ae34aa15c45df0f1c376,
+          type: 3}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4189943364752576081, guid: d9468d715d319464ab87af32ca85feb2,
+          type: 3}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2237681676045037604, guid: d9468d715d319464ab87af32ca85feb2,
           type: 3}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
@@ -1586,7 +1613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawner: {fileID: 1714446319}
   RollingBallSpawner: {fileID: 1714446321}
-  spawnInterval: 5
+  spawnInterval: 300
   riseHeight: 1
   riseDuration: 1
 --- !u!114 &1714446321
@@ -1602,7 +1629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnOnStart: 1
-  SpawnObject: {fileID: 4297977948094736248, guid: 50b4ad153d203450289ecdf5628a9a68,
+  SpawnObject: {fileID: 4868021119922083484, guid: d9468d715d319464ab87af32ca85feb2,
     type: 3}
   SpawnAmount: 0
   MaxIterations: 1000

@@ -19,23 +19,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public float gameDurationSeconds = 60f; 
-    public PlayerHealth playerHealth; 
-    public TextMeshProUGUI scoreText;     
-    public TextMeshProUGUI timerText;
-    public TextMeshProUGUI healthText; 
-    public GameObject gameOverPanel; 
-    public UnityEvent OnGameOver;
+    public float GameDurationSeconds = 60f; 
+    public PlayerHealth PlayerHealth; 
+    public TextMeshProUGUI ScoreText;     
+    public TextMeshProUGUI TimerText;
+    public TextMeshProUGUI HealthText; 
+    public GameObject GameOverPanel; 
+    //public UnityEvent OnGameOver;
 
     private int score = 0;
     private float timer;
     private bool isGameOver = false;
 
-    public int Score => score;
-    public float Timer => timer;
-    public bool IsGameOver => isGameOver;
-
-
+    // public int Score => score;
+    // public float Timer => timer;
+    // public bool IsGameOver => isGameOver;
 
     void Awake()
     {
@@ -48,19 +46,19 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
 
-        timer = gameDurationSeconds;
-        if (gameOverPanel != null) gameOverPanel.SetActive(false); // Hide game over screen initially
+        timer = GameDurationSeconds;
+        if (GameOverPanel != null) GameOverPanel.SetActive(false); 
     }
 
     void Start()
     {
 
-        playerHealth.OnPlayerDeath.AddListener(HandlePlayerDeath);
-        playerHealth.OnHealthChanged.AddListener(UpdateHealthUI); // Subscribe to update UI
+        PlayerHealth.OnPlayerDeath.AddListener(HandlePlayerDeath);
+        PlayerHealth.OnHealthChanged.AddListener(UpdateHealthUI); // Subscribe to update UI
 
         UpdateScoreUI();
         UpdateTimerUI();
-        UpdateHealthUI(playerHealth.CurrentHealth, playerHealth.MaxHealth); // Initial health UI update
+        UpdateHealthUI(PlayerHealth.CurrentHealth, PlayerHealth.MaxHealth); // Initial health UI update
     }
 
     void Update()
@@ -81,10 +79,10 @@ public class GameManager : MonoBehaviour
 
     void OnDestroy()
     {
-        if (playerHealth != null)
+        if (PlayerHealth != null)
         {
-            playerHealth.OnPlayerDeath.RemoveListener(HandlePlayerDeath);
-            playerHealth.OnHealthChanged.RemoveListener(UpdateHealthUI);
+            PlayerHealth.OnPlayerDeath.RemoveListener(HandlePlayerDeath);
+            PlayerHealth.OnHealthChanged.RemoveListener(UpdateHealthUI);
         }
 
         if (_instance == this)
@@ -116,45 +114,46 @@ public class GameManager : MonoBehaviour
 
     private void EndGame(string reason)
     {
-        if (isGameOver) return; // Prevent ending the game multiple times
+        if (isGameOver) return; 
 
         isGameOver = true;
-        timer = 0f; // Ensure timer stops at 0
+        timer = 0f; 
         Debug.Log($"Game Over! Reason: {reason}. Final Score: {score}");
 
-        // Trigger game over event
-        OnGameOver?.Invoke();
+        
+        //OnGameOver?.Invoke();
 
-        if (gameOverPanel != null)
+        if (GameOverPanel != null)
         {
-            gameOverPanel.SetActive(true);
+            GameOverPanel.SetActive(true);
         }
+        Time.timeScale = 0f; 
     }
 
 
     private void UpdateScoreUI()
     {
-        if (scoreText != null)
+        if (ScoreText != null)
         {
-            scoreText.text = $"Score: {score}";
+            ScoreText.text = $"Score: {score}";
         }
     }
 
     private void UpdateTimerUI()
     {
-        if (timerText != null)
+        if (TimerText != null)
         {
             float minutes = Mathf.FloorToInt(timer / 60);
             float seconds = Mathf.FloorToInt(timer % 60);
-            timerText.text = $"Time: {minutes:00}:{seconds:00}";
+            TimerText.text = $"Time: {minutes:00}:{seconds:00}";
         }
     }
 
     private void UpdateHealthUI(float current, float max)
     {
-        if (healthText != null)
+        if (HealthText != null)
         {
-            healthText.text = $"Health: {Mathf.CeilToInt(current)} / {Mathf.CeilToInt(max)}"; 
+            HealthText.text = $"Health: {Mathf.CeilToInt(current)} / {Mathf.CeilToInt(max)}"; 
         }
     }
 }

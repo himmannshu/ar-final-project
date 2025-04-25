@@ -9,6 +9,7 @@ TagManager:
   - Fireball
   - Railbeam
   - Explosion
+  - Enemy2
   layers:
   - Default
   - TransparentFX

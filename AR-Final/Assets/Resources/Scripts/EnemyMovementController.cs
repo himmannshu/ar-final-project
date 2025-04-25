@@ -17,6 +17,6 @@ public class EnemyMovementController : MonoBehaviour
         Vector3 targetPosition = cameraRig.centerEyeAnchor.position;
         targetPosition.y = transform.position.y; // Keep the enemy at the same height
         agent.SetDestination(targetPosition);
-        agent.speed = .75f; // Set the speed of the NavMeshAgent
+        agent.speed = .25f; // Set the speed of the NavMeshAgent
     }
 }

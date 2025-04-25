@@ -55,8 +55,6 @@ public class FloorSpawnner : MonoBehaviour
         obj.transform.position = startPos; // Set the initial position below the floor
 
         Vector3 targetPos = startPos + Vector3.up * riseHeight;
-        Debug.Log("Start Position: " + " Name: " + obj.name + " " + startPos);
-        Debug.Log("Target Position: " + " Name: " + obj.name + " " + targetPos);
         float elapsed = 0f;
 
         while (elapsed < riseDuration)

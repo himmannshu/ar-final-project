@@ -58,6 +58,7 @@ public class EnemyScript : MonoBehaviour {
 		if(health <= 0) {
 			//kill this one
 			Destroy(gameObject);
+			GameManager.Instance.AddScore(1);
 		}
 	}
 	

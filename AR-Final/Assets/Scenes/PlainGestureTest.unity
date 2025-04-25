@@ -185,8 +185,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8cfb34600e77634e8d4030516344e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xrOrigin: {fileID: 830921649}
+  camera: {fileID: 440951300}
   fireballPrefab: {fileID: 4930414397919568918, guid: acc56a766b6e3654f857caf714a85b6e,
     type: 3}
+  minimumVelocity: 0.1
 --- !u!4 &245264250
 Transform:
   m_ObjectHideFlags: 0
@@ -214,10 +217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10bf30775abf25f40b6c9bc5b074656a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireballPrefab: {fileID: 4930414397919568918, guid: acc56a766b6e3654f857caf714a85b6e,
-    type: 3}
   m_HandTrackingEvents: {fileID: 2085122842}
-  m_HandShapeOrPose: {fileID: 11400000, guid: e7b5bfc4e711f9049b4ad03ade500a21, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 3681367070ae6f64eb11f12919afffac, type: 2}
   m_TargetTransform: {fileID: 0}
   m_GesturePerformed:
     m_PersistentCalls:
@@ -236,7 +237,19 @@ MonoBehaviour:
         m_CallState: 2
   m_GestureEnded:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 245264249}
+        m_TargetAssemblyTypeName: TestScript, Assembly-CSharp
+        m_MethodName: OnGestureEnded
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
 --- !u!1 &440951300
@@ -269,7 +282,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440951300}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

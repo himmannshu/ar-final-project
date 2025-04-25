@@ -9,8 +9,6 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
 	/// </summary>
 	public class GestureScript : MonoBehaviour
 	{
-		public GameObject fireballPrefab;
-		
 		[SerializeField]
 		[Tooltip("The hand tracking events component to subscribe to receive updated joint data to be used for gesture detection.")]
 		XRHandTrackingEvents m_HandTrackingEvents;
@@ -150,9 +148,6 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
 				{
 					m_GesturePerformed?.Invoke();
 					m_PerformedTriggered = true;
-					
-					//hmm
-					for(int i = 0; i < 10; i++) Instantiate(fireballPrefab, new Vector3(0f, i * 0.1f, 0f), Quaternion.identity);
 				}
 			}
 

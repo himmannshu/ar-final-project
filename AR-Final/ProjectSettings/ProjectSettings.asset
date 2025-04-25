@@ -143,6 +143,7 @@ PlayerSettings:
   bundleVersion: 0.1.0
   preloadedAssets:
   - {fileID: 11400000, guid: 5d41568ec9a32eb4b99c42f7287d4e74, type: 2}
+  - {fileID: 11400000, guid: 6d47e81f172d3f14f883ca3db029e358, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -852,7 +853,7 @@ PlayerSettings:
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: AR-Final
-  metroPackageVersion: 
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -860,7 +861,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: AR-Final
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: AR-Final
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

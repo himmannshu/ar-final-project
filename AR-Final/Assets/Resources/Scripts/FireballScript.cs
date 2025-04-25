@@ -13,11 +13,6 @@ public class FireballScript : MonoBehaviour {
 	float initialScale;
 	float elapsed, animationDuration = 20f;
 	
-	public void Explode(Vector3 x) {
-		Instantiate(explosionPrefab, x, Quaternion.identity);
-		Destroy(gameObject);
-	}
-	
 	void Start() {
 		//animation stuff
 		initialScale = transform.localScale.x;
@@ -50,5 +45,10 @@ public class FireballScript : MonoBehaviour {
 	float animation(float x) {
 		if(x < 1) return 1 - Mathf.Sin((0.25f * animationDuration) * x * 360) * (1 - x) * 0.1f;
 		else return 0f;
+	}
+	
+	public void Explode(Vector3 x) {
+		Instantiate(explosionPrefab, x, Quaternion.identity);
+		Destroy(gameObject);
 	}
 }

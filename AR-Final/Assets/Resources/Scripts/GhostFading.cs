@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy2Script : EnemyScript
+public class GhostFading : MonoBehaviour
 {
     public float VisibilityDuration = 3f; 
     private Renderer rend;

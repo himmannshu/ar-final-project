@@ -6,9 +6,7 @@ public class FireballScript : MonoBehaviour {
 	public GameObject explosionPrefab;
 	public int damage = 60,
 			   cooldown = 60;
-	
-	float baseSpeed = 8f;
-	Rigidbody rb;
+	public float baseSpeed = 8f;
 	
 	float initialScale;
 	float elapsed, animationDuration = 20f;
@@ -17,10 +15,6 @@ public class FireballScript : MonoBehaviour {
 		//animation stuff
 		initialScale = transform.localScale.x;
 		elapsed = 0f;
-		
-		//start moving
-		rb = GetComponent<Rigidbody>();
-		rb.AddForce(baseSpeed * transform.forward, ForceMode.VelocityChange);
 		
 		//delete
 		Destroy(gameObject, animationDuration);
@@ -32,7 +26,10 @@ public class FireballScript : MonoBehaviour {
 		if(other.tag == "Railbeam") {
 			//explode
 			Explode(transform.position);
+			return;
 		}
+		
+		Destroy(gameObject);
 	}
 	
 	void Update() {

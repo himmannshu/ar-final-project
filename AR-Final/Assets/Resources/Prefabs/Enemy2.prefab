@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4189943364752576081}
   - component: {fileID: 6878491350921251855}
   - component: {fileID: 5230357902225012106}
+  - component: {fileID: 2107780954884901760}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Enemy2
@@ -181,10 +182,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 4868021119922083484}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19e57bd4b6eba47f58533752827c4618, type: 3}
+  m_Script: {fileID: 11500000, guid: c2cf3dd1254aa9147b4742b6399eba75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damageNumberPrefab: {fileID: 6798763620393539788, guid: 727c9eff19f4d8d4aac39b733664fe2d,
     type: 3}
   baseHealth: 100
+--- !u!114 &2107780954884901760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4868021119922083484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2f58a18eae5254ab49448d8232ab39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   VisibilityDuration: 3

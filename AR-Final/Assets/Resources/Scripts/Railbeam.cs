@@ -25,6 +25,9 @@ public class RailbeamScript : MonoBehaviour {
 		//Destroy(gameObject.GetComponent<Rigidbody>(), 0.05f);		//FIXME
 		//Destroy(gameObject, animationDuration);
 		Destroy(gameObject, 0.05f);
+		
+		//FIXME: replace this with a raycast
+		//(if we're trying to obstruct augmented elements)
 	}
 	
 	void Update() {

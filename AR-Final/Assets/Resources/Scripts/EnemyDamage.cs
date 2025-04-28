@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class EnemyScript : MonoBehaviour {
+public class EnemyDamage : MonoBehaviour {
 	public GameObject damageNumberPrefab;
 	public int baseHealth = 100;
 	
@@ -36,9 +36,8 @@ public class EnemyScript : MonoBehaviour {
 			int damage = other.GetComponent<FireballScript>().damage;
 			health -= damage;
 			
-			//make it explode (?)
-			//other.GetComponent<FireballScript>().Explode(collision.GetContact(0).point);
-			Destroy(other);	//FIXME: check if this is desired function
+			//delete fireball
+			Destroy(other);
 			
 			//spawn damage number thing
 			spawnDamageNumber(collision.GetContact(0), damage);

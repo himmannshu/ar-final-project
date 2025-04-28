@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageNumber : MonoBehaviour {
+public class DamageNumberScript : MonoBehaviour {
 	float initialScale;
 	float elapsed, animationDuration = 0.5f;
 	

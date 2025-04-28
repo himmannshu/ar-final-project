@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.XR.Hands;
 using UnityEngine.XR.Management;
 
-public class CastScript : MonoBehaviour {
+public class Spellcasting : MonoBehaviour {
 	public bool left;
 	public GameObject xrOrigin, camera, fireballPrefab, railbeamPrefab;
 	public float minimumVelocity = 0.03f;
@@ -88,7 +88,11 @@ public class CastScript : MonoBehaviour {
 			//shoot only one
 			fireballActive = false;
 			
-			Instantiate(fireballPrefab, palmPosition, Quaternion.LookRotation(palmVelocity, Vector3.up));
+			GameObject fireball = Instantiate(fireballPrefab, palmPosition, Quaternion.LookRotation(palmVelocity, Vector3.up));
+			float baseSpeed = fireball.GetComponent<FireballScript>().baseSpeed;
+			Rigidbody rb = fireball.GetComponent<Rigidbody>();
+			//rb.AddForce(palmVelocity * baseSpeed, ForceMode.VelocityChange);
+			rb.AddForce(baseSpeed * palmVelocity.normalized, ForceMode.VelocityChange);
 		}
 		
 		
@@ -109,7 +113,7 @@ public class CastScript : MonoBehaviour {
 			railgunActive = false;
 			
 			Vector3 forw = (indexTipPosition - indexProximalPosition).normalized;
-			Instantiate(railbeamPrefab, indexTipPosition + 100f * forw, Quaternion.LookRotation(forw, Vector3.up));
+			GameObject railbeam = Instantiate(railbeamPrefab, indexTipPosition + 100f * forw, Quaternion.LookRotation(forw, Vector3.up));
 		}
 	}
 	

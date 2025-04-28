@@ -5,22 +5,13 @@ using Meta.XR.MRUtilityKit;
 public class FloorSpawnner : MonoBehaviour
 {
     public FindSpawnPositions spawner;
+    public FindSpawnPositions RollingBallSpawner;
     public float spawnInterval = 10f;
     public float riseHeight = 1f;
     public float riseDuration = 1f;
 
     private void Start()
     {
-        StartCoroutine(WaitForMRUKReady());
-    }
-
-    private IEnumerator WaitForMRUKReady()
-    {
-        while (MRUK.Instance.Rooms == null || MRUK.Instance.Rooms.Count == 0)
-        {
-            yield return null;
-        }
-
         StartCoroutine(SpawnLoop());
     }
 
@@ -39,18 +30,30 @@ public class FloorSpawnner : MonoBehaviour
     {
         spawner.SpawnAmount = 1;
         spawner.StartSpawn();
-        spawner.SpawnAmount = 0; 
+        spawner.SpawnAmount = 0;
+
+        RollingBallSpawner.SpawnAmount = 1;
+        RollingBallSpawner.StartSpawn();
+        RollingBallSpawner.SpawnAmount = 0;
+
         if (spawner.transform.childCount > 0)
         {
             Transform spawned = spawner.transform.GetChild(spawner.transform.childCount - 1);
+            StartCoroutine(RiseFromFloor(spawned.gameObject));
+        }
+
+        if (RollingBallSpawner.transform.childCount > 0)
+        {
+            Transform spawned = RollingBallSpawner.transform.GetChild(RollingBallSpawner.transform.childCount - 1);
             StartCoroutine(RiseFromFloor(spawned.gameObject));
         }
     }
 
     private IEnumerator RiseFromFloor(GameObject obj)
     {
-        Vector3 startPos = obj.transform.position - Vector3.up * riseHeight;
+        Vector3 startPos = obj.transform.position - 1.1f * Vector3.up * riseHeight;
         obj.transform.position = startPos; // Set the initial position below the floor
+
         Vector3 targetPos = startPos + Vector3.up * riseHeight;
         float elapsed = 0f;
 

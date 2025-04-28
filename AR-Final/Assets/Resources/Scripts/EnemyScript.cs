@@ -7,9 +7,11 @@ public class EnemyScript : MonoBehaviour {
 	public GameObject damageNumberPrefab;
 	public int baseHealth = 100;
 	
+	GameObject camera;
 	int health;
 	
 	void Start() {
+		camera = GameObject.Find("Main Camera");
 		health = baseHealth;
 	}
 	
@@ -66,7 +68,7 @@ public class EnemyScript : MonoBehaviour {
 		GameObject damageText = Instantiate(
 			damageNumberPrefab,
 			contact.point,
-			Quaternion.LookRotation(contact.normal, Vector3.up));
+			Quaternion.LookRotation(contact.point - camera.transform.position, Vector3.up));
 		damageText.GetComponent<TextMeshPro>().SetText($"{damage}");
 	}
 }

@@ -146,6 +146,8 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 6798763620393539788, guid: 727c9eff19f4d8d4aac39b733664fe2d,
     type: 3}
   baseHealth: 100
+  fireballWeakness: 0
+  railbeamWeakness: 0.5
 --- !u!114 &-6226070664966232572
 MonoBehaviour:
   m_ObjectHideFlags: 0

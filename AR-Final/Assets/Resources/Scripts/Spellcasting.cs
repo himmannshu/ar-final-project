@@ -93,6 +93,7 @@ public class Spellcasting : MonoBehaviour {
 			Rigidbody rb = fireball.GetComponent<Rigidbody>();
 			//rb.AddForce(palmVelocity * baseSpeed, ForceMode.VelocityChange);
 			rb.AddForce(baseSpeed * palmVelocity.normalized, ForceMode.VelocityChange);
+			//FIXME
 		}
 		
 		

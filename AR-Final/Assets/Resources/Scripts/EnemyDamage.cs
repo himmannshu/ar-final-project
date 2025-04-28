@@ -6,6 +6,8 @@ using TMPro;
 public class EnemyDamage : MonoBehaviour {
 	public GameObject damageNumberPrefab;
 	public int baseHealth = 100;
+	public float fireballWeakness = 0.0f,
+				 railbeamWeakness = 0.0f;
 	
 	GameObject camera;
 	int health;
@@ -20,7 +22,7 @@ public class EnemyDamage : MonoBehaviour {
 		
 		if(other.tag == "Railbeam") {
 			//reduce health
-			int damage = other.GetComponent<RailbeamScript>().damage;
+			int damage = (int)(other.GetComponent<RailbeamScript>().damage * (1 + railbeamWeakness));
 			health -= damage;
 			
 			//need to make sure to only be damaged by the beam once...
@@ -33,7 +35,7 @@ public class EnemyDamage : MonoBehaviour {
 		
 		if(other.tag == "Fireball") {
 			//reduce health
-			int damage = other.GetComponent<FireballScript>().damage;
+			int damage = (int)(other.GetComponent<FireballScript>().damage * (1 + fireballWeakness));
 			health -= damage;
 			
 			//delete fireball
@@ -48,7 +50,7 @@ public class EnemyDamage : MonoBehaviour {
 			//FIXME: make sure this makesense. also, replace the constant with the initialScale value
 			float maxDist = other.GetComponent<ExplosionScript>().GetMaxDist(),
 				  dist = Vector3.Distance(other.transform.position, collision.GetContact(0).point);
-			int damage = (int)((float)other.GetComponent<ExplosionScript>().damage * (maxDist - dist) / maxDist);
+			int damage = (int)(other.GetComponent<ExplosionScript>().damage * (maxDist - dist) / maxDist);
 			health -= damage;
 			
 			//spawn damage number thing

@@ -269,3 +269,4 @@ MonoBehaviour:
     type: 3}
   damage: 60
   cooldown: 60
+  baseSpeed: 5

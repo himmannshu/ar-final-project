@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Splitting : DeathEffect {
@@ -14,6 +15,12 @@ public class Splitting : DeathEffect {
 
 	public override void go() {
 		if(splitsRemaining-- <= 0) return;
+		
+		StartCoroutine(split());
+	}
+	
+	IEnumerator split() {
+		yield return new WaitForSeconds(1);
 		
 		Vector3 leftward = (gameObject.transform.localRotation * Vector3.forward).normalized;
 		GameObject left  = Instantiate(gameObject, gameObject.transform.localPosition +  0.15f * leftward, gameObject.transform.localRotation);

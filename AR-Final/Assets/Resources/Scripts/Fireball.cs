@@ -40,7 +40,7 @@ public class FireballScript : MonoBehaviour {
 	}
 	
 	float animation(float x) {
-		if(x < 1) return 1 - Mathf.Sin((0.25f * animationDuration) * x * 360) * (1 - x) * 0.1f;
+		if(x < 1) return 1 - Mathf.Sin(x * 360) * (1 - x) * 0.1f;
 		else return 0f;
 	}
 	

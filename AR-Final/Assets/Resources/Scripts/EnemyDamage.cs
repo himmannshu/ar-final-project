@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
 public class EnemyDamage : MonoBehaviour {
+	public DeathEffect deathEffect;
+	//public UnityEvent<int> splitEvent;
 	public GameObject damageNumberPrefab;
-	public int baseHealth = 100;
+	public int baseHealth = 100,
+			   score = 1;
 	public float fireballWeakness = 0.0f,
 				 railbeamWeakness = 0.0f;
 	
@@ -59,9 +63,19 @@ public class EnemyDamage : MonoBehaviour {
 		
 		//destroy enemy
 		if(health <= 0) {
-			//kill this one
+			if(deathEffect != null) {
+				deathEffect.go();
+			}
+			
+			//for splitting
+			/*
+			if(gameObject.CompareTag("EnemySplitter")) {
+				splitEvent?.Invoke(gameObject.GetComponent<Splitting>().splitsRemaining);
+			}
+			*/
+			
 			Destroy(gameObject);
-			GameManager.Instance.AddScore(1);
+			GameManager.Instance.AddScore(score);
 		}
 	}
 	

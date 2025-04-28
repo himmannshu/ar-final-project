@@ -17,7 +17,8 @@ public class Spellcasting : MonoBehaviour {
 	Vector3 palmPosition = new Vector3(0f, 0f, 0f),
 			indexTipPosition = new Vector3(0f, 0f, 0f),
 			indexProximalPosition = new Vector3(0f, 0f, 0f),
-			littleProximalPosition = new Vector3(0f, 0f, 0f);
+			littleProximalPosition = new Vector3(0f, 0f, 0f),
+			wristPosition = new Vector3(0f, 0f, 0f);
 	
 	//joint velocities
 	const int averageWindow = 180;
@@ -67,6 +68,7 @@ public class Spellcasting : MonoBehaviour {
 		var indexTipJoint = hand.GetJoint(XRHandJointID.IndexTip);
 		var indexProximalJoint = hand.GetJoint(XRHandJointID.IndexProximal);
 		var littleProximalJoint = hand.GetJoint(XRHandJointID.LittleProximal);
+		var wristJoint = hand.GetJoint(XRHandJointID.Wrist);
 		
 		if(palmJoint.TryGetPose(out Pose palmPose)) {
 			palmPosition = palmPose.GetTransformedBy(xrOriginPose).position;
@@ -79,6 +81,9 @@ public class Spellcasting : MonoBehaviour {
 		}
 		if(littleProximalJoint.TryGetPose(out Pose littleProximalPose)) {
 			littleProximalPosition = littleProximalPose.GetTransformedBy(xrOriginPose).position;
+		}
+		if(wristJoint.TryGetPose(out Pose wristPose)) {
+			wristPosition = wristPose.GetTransformedBy(xrOriginPose).position;
 		}
 		
 		//joint velocities
@@ -109,13 +114,15 @@ public class Spellcasting : MonoBehaviour {
 			//get palm normal vector
 			Vector3 one = indexProximalPosition - palmPosition,
 					two = littleProximalPosition - palmPosition;
-			Vector3 palmNormal = (left ? Vector3.Cross(one, two) : Vector3.Cross(two, one)).normalized;
+			Vector3 palmNormal = (left ? Vector3.Cross(one, two) : Vector3.Cross(two, one)).normalized,
+					wristToPalm = (palmPosition - wristPosition).normalized;
+			Vector3 shootDirection = /*Quaternion.AngleAxis(10, Vector3.Cross(palmNormal, wristToPalm)) * */ (wristToPalm + palmNormal).normalized;
 			
 			//set fireball speed
 			float baseSpeed = fireball.GetComponent<FireballScript>().baseSpeed;
 			Rigidbody rb = fireball.GetComponent<Rigidbody>();
 			
-			rb.AddForce(baseSpeed * palmNormal, ForceMode.VelocityChange);
+			rb.AddForce(baseSpeed * shootDirection, ForceMode.VelocityChange);
 			//rb.AddForce(baseSpeed * palmVelocity.normalized, ForceMode.VelocityChange);
 		}
 		

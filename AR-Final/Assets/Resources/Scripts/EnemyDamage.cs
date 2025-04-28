@@ -25,7 +25,13 @@ public class EnemyDamage : MonoBehaviour {
 	
 	void FixedUpdate() {
 		if(tick-- <= 0 && continuousDamage > 0) {
+			//reduce health
 			health -= continuousDamage;
+			
+			//spawn damage number thing
+			spawnDamageNumber(transform.position + 0.5f * (Vector3.up + (camera.transform.position - transform.position).normalized), continuousDamage);
+			
+			//reset tick delay
 			tick = continuousDamageTickDelay;
 		}
 	}
@@ -42,7 +48,7 @@ public class EnemyDamage : MonoBehaviour {
 			//maybe have collider be deleted?
 			
 			//spawn damage number thing
-			spawnDamageNumber(collision.GetContact(0), damage);
+			spawnDamageNumber(collision.GetContact(0).point, damage);
 			//FIXME: it spawns the number, just sort the collision contacts by nearest to player
 		}
 		
@@ -55,7 +61,7 @@ public class EnemyDamage : MonoBehaviour {
 			Destroy(other);
 			
 			//spawn damage number thing
-			spawnDamageNumber(collision.GetContact(0), damage);
+			spawnDamageNumber(collision.GetContact(0).point, damage);
 		}
 		
 		if(other.tag == "Explosion") {
@@ -67,7 +73,7 @@ public class EnemyDamage : MonoBehaviour {
 			health -= damage;
 			
 			//spawn damage number thing
-			spawnDamageNumber(collision.GetContact(0), damage);
+			spawnDamageNumber(collision.GetContact(0).point, damage);
 		}
 		
 		if(other.tag == "Lightning") {
@@ -76,7 +82,7 @@ public class EnemyDamage : MonoBehaviour {
 			continuousDamage += damage;
 			
 			//spawn damage number thing
-			spawnDamageNumber(collision.GetContact(0), damage);
+			spawnDamageNumber(collision.GetContact(0).point, damage);
 		}
 		
 		//destroy enemy
@@ -99,11 +105,11 @@ public class EnemyDamage : MonoBehaviour {
 		}
 	}
 	
-	void spawnDamageNumber(ContactPoint contact, int damage) {
+	void spawnDamageNumber(Vector3 point, int damage) {
 		GameObject damageText = Instantiate(
 			damageNumberPrefab,
-			contact.point,
-			Quaternion.LookRotation(contact.point - camera.transform.position, Vector3.up));
+			point,
+			Quaternion.LookRotation(point - camera.transform.position, Vector3.up));
 		damageText.GetComponent<TextMeshPro>().SetText($"{damage}");
 	}
 }

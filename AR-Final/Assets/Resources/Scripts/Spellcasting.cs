@@ -149,7 +149,7 @@ public class Spellcasting : MonoBehaviour {
 			
 			if(lightning != null) {
 				//update position if spawned
-				lightning.transform.localPosition = middleProximalPosition + 2.5f * forw;
+				lightning.transform.position = middleProximalPosition + 2.5f * forw;
 			}
 			else {
 				//spawn if unspawned

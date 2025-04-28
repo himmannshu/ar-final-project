@@ -1744,7 +1744,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 806880695}
         m_TargetAssemblyTypeName: Spellcasting, Assembly-CSharp
-        m_MethodName: ActivateLightning
+        m_MethodName: DeactivateLightning
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -274,8 +274,10 @@ MonoBehaviour:
     type: 3}
   baseHealth: 100
   score: 1
+  continuousDamageTickDelay: 5
   fireballWeakness: 0
   railbeamWeakness: 0
+  lightningWeakness: 0.5
 --- !u!114 &3137801465733155767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,4 +290,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2f58a18eae5254ab49448d8232ab39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VisibilityDuration: 3

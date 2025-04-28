@@ -6,6 +6,7 @@ public class FloorSpawnner : MonoBehaviour
 {
     public FindSpawnPositions spawner;
     public FindSpawnPositions RollingBallSpawner;
+    public FindSpawnPositions splitterSpawner;
     public float spawnInterval = 10f;
     public float riseHeight = 1f;
     public float riseDuration = 1f;
@@ -35,6 +36,10 @@ public class FloorSpawnner : MonoBehaviour
         RollingBallSpawner.SpawnAmount = 1;
         RollingBallSpawner.StartSpawn();
         RollingBallSpawner.SpawnAmount = 0;
+		
+        splitterSpawner.SpawnAmount = 1;
+        splitterSpawner.StartSpawn();
+        splitterSpawner.SpawnAmount = 0;
 
         if (spawner.transform.childCount > 0)
         {
@@ -45,6 +50,12 @@ public class FloorSpawnner : MonoBehaviour
         if (RollingBallSpawner.transform.childCount > 0)
         {
             Transform spawned = RollingBallSpawner.transform.GetChild(RollingBallSpawner.transform.childCount - 1);
+            StartCoroutine(RiseFromFloor(spawned.gameObject));
+        }
+		
+        if (splitterSpawner.transform.childCount > 0)
+        {
+            Transform spawned = splitterSpawner.transform.GetChild(splitterSpawner.transform.childCount - 1);
             StartCoroutine(RiseFromFloor(spawned.gameObject));
         }
     }

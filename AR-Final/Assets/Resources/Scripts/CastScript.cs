@@ -3,6 +3,7 @@ using UnityEngine.XR.Hands;
 using UnityEngine.XR.Management;
 
 public class CastScript : MonoBehaviour {
+	public bool left;
 	public GameObject xrOrigin, camera, fireballPrefab, railbeamPrefab;
 	public float minimumVelocity = 0.03f;
 	
@@ -17,14 +18,14 @@ public class CastScript : MonoBehaviour {
 	Vector3[] palmVelocities = new Vector3[averageWindow];
 	int pvi = 0;
 	
-	//for railgun,
+	//for railgun
 	bool railgunActive = false;
 	Vector3 indexTipPosition = new Vector3(0f, 0f, 0f),
 			indexProximalPosition = new Vector3(0f, 0f, 0f);
 	
 	
-	//https://docs.unity3d.com/Packages/com.unity.xr.hands@1.1/manual/hand-data/xr-hand-access-data.html
 	void Start() {
+		//https://docs.unity3d.com/Packages/com.unity.xr.hands@1.1/manual/hand-data/xr-hand-access-data.html
 		XRHandSubsystem m_Subsystem = 
 			XRGeneralSettings.Instance?
 			.Manager?
@@ -46,7 +47,7 @@ public class CastScript : MonoBehaviour {
 			case XRHandSubsystem.UpdateType.Dynamic:
 				//Update game logic that uses hand data
 				
-				UpdateTransform(subsystem.leftHand);
+				UpdateTransform(left ? subsystem.leftHand : subsystem.rightHand);
 				
 				break;
 			case XRHandSubsystem.UpdateType.BeforeRender: 

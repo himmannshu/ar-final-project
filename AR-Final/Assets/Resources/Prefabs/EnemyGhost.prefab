@@ -18,7 +18,11 @@ GameObject:
   - component: {fileID: 5230357902225012106}
   - component: {fileID: 2107780954884901760}
   m_Layer: 0
+<<<<<<< HEAD:AR-Final/Assets/Resources/Prefabs/EnemyGhost.prefab
   m_Name: EnemyGhost
+=======
+  m_Name: EnemyY
+>>>>>>> monster-prefabs:AR-Final/Assets/Resources/Prefabs/EnemyY.prefab
   m_TagString: Enemy2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

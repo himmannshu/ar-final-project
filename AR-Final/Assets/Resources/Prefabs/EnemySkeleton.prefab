@@ -17,7 +17,11 @@ GameObject:
   - component: {fileID: -6226070664966232572}
   - component: {fileID: -2754970650109107257}
   m_Layer: 0
+<<<<<<< HEAD:AR-Final/Assets/Resources/Prefabs/EnemySkeleton.prefab
   m_Name: EnemySkeleton
+=======
+  m_Name: EnemyX
+>>>>>>> monster-prefabs:AR-Final/Assets/Resources/Prefabs/EnemyX.prefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

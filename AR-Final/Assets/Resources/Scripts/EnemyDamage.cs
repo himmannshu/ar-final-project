@@ -6,19 +6,28 @@ using TMPro;
 
 public class EnemyDamage : MonoBehaviour {
 	public DeathEffect deathEffect;
-	//public UnityEvent<int> splitEvent;
 	public GameObject damageNumberPrefab;
 	public int baseHealth = 100,
-			   score = 1;
-	public float fireballWeakness = 0.0f,
-				 railbeamWeakness = 0.0f;
+			   score = 1,
+			   continuousDamageTickDelay = 5;
+	public float fireballWeakness  = 0.0f,
+				 railbeamWeakness  = 0.0f,
+				 lightningWeakness = 0.0f;
 	
 	GameObject camera;
-	int health;
+	int health, continuousDamage, tick;
 	
 	void Start() {
 		camera = GameObject.Find("Main Camera");
 		health = baseHealth;
+		tick = 0;
+	}
+	
+	void FixedUpdate() {
+		if(tick-- <= 0 && continuousDamage > 0) {
+			health -= continuousDamage;
+			tick = continuousDamageTickDelay;
+		}
 	}
 	
 	void OnCollisionEnter(Collision collision) {
@@ -61,21 +70,32 @@ public class EnemyDamage : MonoBehaviour {
 			spawnDamageNumber(collision.GetContact(0), damage);
 		}
 		
+		if(other.tag == "Lightning") {
+			//update continuous damage
+			int damage = (int)(other.GetComponent<LightningScript>().damage * (1 + lightningWeakness));
+			continuousDamage += damage;
+			
+			//spawn damage number thing
+			spawnDamageNumber(collision.GetContact(0), damage);
+		}
+		
 		//destroy enemy
 		if(health <= 0) {
 			if(deathEffect != null) {
 				deathEffect.go();
 			}
 			
-			//for splitting
-			/*
-			if(gameObject.CompareTag("EnemySplitter")) {
-				splitEvent?.Invoke(gameObject.GetComponent<Splitting>().splitsRemaining);
-			}
-			*/
-			
 			Destroy(gameObject);
 			GameManager.Instance.AddScore(score);
+		}
+	}
+	
+	void OnCollisionExit(Collision collision) {
+		GameObject other = collision.gameObject;
+		
+		if(other.tag == "Lightning") {
+			//update continuous damage
+			continuousDamage -= (int)(other.GetComponent<LightningScript>().damage * (1 + lightningWeakness));
 		}
 	}
 	

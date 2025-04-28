@@ -718,6 +718,8 @@ MonoBehaviour:
     type: 3}
   railbeamPrefab: {fileID: 7298520840869428543, guid: 4e12abdd09dbd534fab29f8076a99d32,
     type: 3}
+  lightningPrefab: {fileID: 3381187682030047243, guid: ed05ae78cc0d1134c91cfd2e99b9eec8,
+    type: 3}
   minimumVelocity: 0.03
 --- !u!4 &531123602
 Transform:
@@ -1189,6 +1191,7 @@ GameObject:
   - component: {fileID: 682884179}
   - component: {fileID: 682884178}
   - component: {fileID: 682884177}
+  - component: {fileID: 682884181}
   m_Layer: 0
   m_Name: Left Hand Tracking
   m_TagString: Untagged
@@ -1335,6 +1338,53 @@ Transform:
   - {fileID: 531123602}
   m_Father: {fileID: 846113941}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &682884181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682884176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10bf30775abf25f40b6c9bc5b074656a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HandTrackingEvents: {fileID: 682884179}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 8c37de8ca509b1d438f33cde6cc71864, type: 2}
+  m_TargetTransform: {fileID: 0}
+  m_GesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 531123601}
+        m_TargetAssemblyTypeName: Spellcasting, Assembly-CSharp
+        m_MethodName: ActivateLightning
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_GestureEnded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 531123601}
+        m_TargetAssemblyTypeName: Spellcasting, Assembly-CSharp
+        m_MethodName: DeactivateLightning
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_MinimumHoldTime: 0.2
+  m_GestureDetectionInterval: 0.1
 --- !u!1 &698439287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,6 +1562,7 @@ GameObject:
   - component: {fileID: 724230942}
   - component: {fileID: 724230941}
   - component: {fileID: 724230940}
+  - component: {fileID: 724230944}
   m_Layer: 0
   m_Name: Right Hand Tracking
   m_TagString: Untagged
@@ -1658,6 +1709,53 @@ Transform:
   - {fileID: 806880696}
   m_Father: {fileID: 846113941}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &724230944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724230939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10bf30775abf25f40b6c9bc5b074656a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HandTrackingEvents: {fileID: 724230942}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 8c37de8ca509b1d438f33cde6cc71864, type: 2}
+  m_TargetTransform: {fileID: 0}
+  m_GesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 806880695}
+        m_TargetAssemblyTypeName: Spellcasting, Assembly-CSharp
+        m_MethodName: ActivateLightning
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_GestureEnded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 806880695}
+        m_TargetAssemblyTypeName: Spellcasting, Assembly-CSharp
+        m_MethodName: ActivateLightning
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_MinimumHoldTime: 0.2
+  m_GestureDetectionInterval: 0.1
 --- !u!1 &776782235
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,6 +1898,8 @@ MonoBehaviour:
   fireballPrefab: {fileID: 4930414397919568918, guid: acc56a766b6e3654f857caf714a85b6e,
     type: 3}
   railbeamPrefab: {fileID: 7298520840869428543, guid: 4e12abdd09dbd534fab29f8076a99d32,
+    type: 3}
+  lightningPrefab: {fileID: 3381187682030047243, guid: ed05ae78cc0d1134c91cfd2e99b9eec8,
     type: 3}
   minimumVelocity: 0.03
 --- !u!4 &806880696

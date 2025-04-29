@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37520af592907f543910aae17d77049c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSplits: 2
+  splitsRemaining: 2
 --- !u!114 &5230357902225012106
 MonoBehaviour:
   m_ObjectHideFlags: 0

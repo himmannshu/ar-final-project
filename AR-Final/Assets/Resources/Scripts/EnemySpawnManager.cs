@@ -49,6 +49,7 @@ public class FloorSpawnner : MonoBehaviour
 
         if (RollingBallSpawner.transform.childCount > 0)
         {
+
             Transform spawned = RollingBallSpawner.transform.GetChild(RollingBallSpawner.transform.childCount - 1);
             StartCoroutine(RiseFromFloor(spawned.gameObject));
         }
@@ -63,8 +64,7 @@ public class FloorSpawnner : MonoBehaviour
     private IEnumerator RiseFromFloor(GameObject obj)
     {
         Vector3 startPos = obj.transform.position - 1.1f * Vector3.up * riseHeight;
-        obj.transform.position = startPos; // Set the initial position below the floor
-
+        obj.transform.position = startPos;
         Vector3 targetPos = startPos + Vector3.up * riseHeight;
         float elapsed = 0f;
 

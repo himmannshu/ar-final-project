@@ -8,9 +8,10 @@ public class PlayerStats : MonoBehaviour
     public Canvas canvas;
     public TextMeshProUGUI ScoreText;     
     public TextMeshProUGUI HealthText;
-    public GameObject XROrigin, camera;
+	public GameObject XROrigin;
     public PlayerHealth Player;
-    private Vector3 wristPosition, palmPosition;
+	public bool left;
+	private Vector3 wristPosition, palmPosition, ringPosition, indexPosition;
     private Pose xrOriginPose;
     
     void Start()
@@ -51,24 +52,31 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    void UpdatePlayerStats(XRHand hand)
-    {
-        var wristJoint = hand.GetJoint(XRHandJointID.Wrist);
-        var palmJoint = hand.GetJoint(XRHandJointID.Palm);
+	void UpdatePlayerStats(XRHand hand) {
+		var wristJoint = hand.GetJoint(XRHandJointID.Wrist);
+		var palmJoint = hand.GetJoint(XRHandJointID.Palm);
+		var ringJoint = hand.GetJoint(XRHandJointID.RingProximal);
+		var indexJoint = hand.GetJoint(XRHandJointID.IndexProximal);
 
-        if(wristJoint.TryGetPose(out Pose wristPose)) {
+		if(wristJoint.TryGetPose(out Pose wristPose)) {
 			wristPosition = wristPose.GetTransformedBy(xrOriginPose).position;
 		}
-        if(palmJoint.TryGetPose(out Pose palmPose)) {
+		if(palmJoint.TryGetPose(out Pose palmPose)) {
 			palmPosition = palmPose.GetTransformedBy(xrOriginPose).position;
 		}
-       
-        //Vector3 worldWristPosition = xrOriginPose.rotation * wristPosition + xrOriginPose.position;
-		Vector3 worldWristPosition = wristPosition + 0.04f * Vector3.up;
-        Quaternion rotation = Quaternion.LookRotation(worldWristPosition - camera.transform.position, (wristPosition - palmPosition).normalized);
-        canvas.transform.position = worldWristPosition;
-        canvas.transform.rotation = rotation;
-    }
+		if(ringJoint.TryGetPose(out Pose ringPose)) {
+			ringPosition = ringPose.GetTransformedBy(xrOriginPose).position;
+		}
+		if(indexJoint.TryGetPose(out Pose indexPose)) {
+			indexPosition = indexPose.GetTransformedBy(xrOriginPose).position;
+		}
+
+		Vector3 backNormal = (left ? -1 : 1) * Vector3.Cross(indexPosition - ringPosition, wristPosition - palmPosition).normalized;
+		Vector3 pos = wristPosition - 0.03f * backNormal;
+		Quaternion rot = Quaternion.LookRotation(backNormal, (palmPosition - wristPosition).normalized);
+		canvas.transform.position = pos;
+		canvas.transform.rotation = rot;
+	}
 
     private void UpdateScoreUI()
     {

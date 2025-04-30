@@ -7,8 +7,9 @@ public class GameStats : MonoBehaviour
 {
     public Canvas canvas;
     public TextMeshProUGUI TimerText;    
-    public GameObject XROrigin;
-    private Vector3 wristPosition;
+	public GameObject XROrigin;
+	public bool left;
+	private Vector3 wristPosition, palmPosition, ringPosition, indexPosition;
     private Pose xrOriginPose;
     
     void Start()
@@ -52,17 +53,31 @@ public class GameStats : MonoBehaviour
         }
     }
 
-    void UpdateGameStats(XRHand hand)
-    {
-        var wristJoint = hand.GetJoint(XRHandJointID.Wrist);
+	void UpdateGameStats(XRHand hand) {
+		var wristJoint = hand.GetJoint(XRHandJointID.Wrist);
+		var palmJoint = hand.GetJoint(XRHandJointID.Palm);
+		var ringJoint = hand.GetJoint(XRHandJointID.RingProximal);
+		var indexJoint = hand.GetJoint(XRHandJointID.IndexProximal);
 
-        if(wristJoint.TryGetPose(out Pose wristPose)) {
+		if(wristJoint.TryGetPose(out Pose wristPose)) {
 			wristPosition = wristPose.GetTransformedBy(xrOriginPose).position;
 		}
-       
-        Vector3 worldWristPosition = xrOriginPose.rotation * wristPosition + xrOriginPose.position;
-        canvas.transform.position = worldWristPosition;
-    }
+		if(palmJoint.TryGetPose(out Pose palmPose)) {
+			palmPosition = palmPose.GetTransformedBy(xrOriginPose).position;
+		}
+		if(ringJoint.TryGetPose(out Pose ringPose)) {
+			ringPosition = ringPose.GetTransformedBy(xrOriginPose).position;
+		}
+		if(indexJoint.TryGetPose(out Pose indexPose)) {
+			indexPosition = indexPose.GetTransformedBy(xrOriginPose).position;
+		}
+
+		Vector3 backNormal = (left ? -1 : 1) * Vector3.Cross(indexPosition - ringPosition, wristPosition - palmPosition).normalized;
+		Vector3 pos = wristPosition - 0.03f * backNormal;
+		Quaternion rot = Quaternion.LookRotation(backNormal, (palmPosition - wristPosition).normalized);
+		canvas.transform.position = pos;
+		canvas.transform.rotation = rot;
+	}
 
     private void UpdateTimerUI()
     {

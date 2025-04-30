@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: -4970244501041036389}
-  speed: 0.25
+  speed: 0.2
 --- !u!114 &-298273750412851655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,10 +272,12 @@ MonoBehaviour:
   deathEffect: {fileID: 0}
   damageNumberPrefab: {fileID: 6798763620393539788, guid: 727c9eff19f4d8d4aac39b733664fe2d,
     type: 3}
-  baseHealth: 100
-  score: 1
-  fireballWeakness: 0
+  baseHealth: 90
+  score: 3
+  continuousDamageTickDelay: 15
+  fireballWeakness: 0.2
   railbeamWeakness: 0
+  lightningWeakness: 0.7
 --- !u!114 &3137801465733155767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,4 +290,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2f58a18eae5254ab49448d8232ab39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VisibilityDuration: 3

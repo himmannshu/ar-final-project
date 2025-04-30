@@ -11,6 +11,7 @@ TagManager:
   - Explosion
   - Enemy2
   - EnemySplitter
+  - Lightning
   layers:
   - Default
   - TransparentFX

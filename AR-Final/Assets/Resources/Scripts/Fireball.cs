@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireballScript : MonoBehaviour {
 	public GameObject explosionPrefab;
-	public int damage = 60,
+	public int damage = 45,
 			   cooldown = 60;
 	public float baseSpeed = 8f;
 	

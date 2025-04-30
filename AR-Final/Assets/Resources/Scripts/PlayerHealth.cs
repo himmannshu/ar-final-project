@@ -17,7 +17,8 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Player Health Initialized: " + MaxHealth);
 
         damageSources.Add("Enemy", 1f);
-        damageSources.Add("Enemy2", 2f);
+        damageSources.Add("Enemy2", 0.75f);
+        damageSources.Add("EnemySplitter", 0.5f);
         
         CurrentHealth = MaxHealth; 
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
@@ -26,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         //Debug.Log("Player collided with: " + other.tag);
-        if (other.CompareTag("Enemy") || other.CompareTag("Enemy2"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Enemy2") || other.CompareTag("EnemySplitter"))
         {
             if (damageSources.ContainsKey(other.tag))
             {

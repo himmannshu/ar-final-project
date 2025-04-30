@@ -18,12 +18,12 @@ public class FloorSpawnner : MonoBehaviour
 
     private IEnumerator SpawnLoop()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         while (true)
         {
             SpawnOne();
-            yield return new WaitForSeconds(spawnInterval);
+            yield return new WaitForSecondsRealtime(spawnInterval);
         }
     }
 

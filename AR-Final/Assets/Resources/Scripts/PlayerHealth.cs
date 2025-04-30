@@ -5,13 +5,13 @@ using UnityEngine.Events;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public AudioSource audioSource;
     public float MaxHealth = 100f; 
     public float CurrentHealth; 
     private Dictionary<string, float> damageSources = new Dictionary<string, float>();
     public UnityEvent<float, float> OnHealthChanged; 
     public UnityEvent OnPlayerDeath; 
-    public GameObject bloodPrefab; 
-    public OVRCameraRig cameraRig;
+    private Coroutine _soundCoroutine;
     void Start()
     {
         Debug.Log("Player Health Initialized: " + MaxHealth);
@@ -42,6 +42,18 @@ public class PlayerHealth : MonoBehaviour
                 OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
             }
         }
-        var blood = Instantiate(bloodPrefab, cameraRig.centerEyeAnchor.position, Quaternion.identity);
+        if (_soundCoroutine == null)
+        {
+            audioSource.enabled = true; 
+            _soundCoroutine = StartCoroutine(SelfDestruct(1f));
+        }
+        audioSource.enabled = true;
+    }
+
+    IEnumerator SelfDestruct(float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        audioSource.enabled = false;
+        _soundCoroutine = null;
     }
 }

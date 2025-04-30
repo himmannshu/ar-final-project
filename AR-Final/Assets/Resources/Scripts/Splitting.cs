@@ -16,5 +16,7 @@ public class Splitting : DeathEffect {
 		GameObject right = Instantiate(gameObject, gameObject.transform.position + -0.5f * leftward, gameObject.transform.rotation);
 		left.GetComponent<Splitting>().setSplitsRemaining(splitsRemaining);
 		right.GetComponent<Splitting>().setSplitsRemaining(splitsRemaining);
+		left.transform.localScale = 0.5f * left.transform.localScale;
+		right.transform.localScale = 0.5f * right.transform.localScale;
 	}
 }

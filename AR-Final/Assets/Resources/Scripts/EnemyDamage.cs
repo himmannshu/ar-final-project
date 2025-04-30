@@ -9,7 +9,7 @@ public class EnemyDamage : MonoBehaviour {
 	public GameObject damageNumberPrefab;
 	public int baseHealth = 100,
 			   score = 1,
-			   continuousDamageTickDelay = 5;
+			   continuousDamageTickDelay = 15;
 	public float fireballWeakness  = 0.0f,
 				 railbeamWeakness  = 0.0f,
 				 lightningWeakness = 0.0f;

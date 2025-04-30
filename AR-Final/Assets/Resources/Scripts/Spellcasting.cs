@@ -16,7 +16,7 @@ public class Spellcasting : MonoBehaviour {
 	
 	//joint positions
 	Pose xrOriginPose;
-	Vector3 palmPosition, indexTipPosition, indexProximalPosition, littleProximalPosition, wristPosition, middleProximalPosition, middleDistalPosition;
+	Vector3 palmPosition, indexTipPosition, indexProximalPosition, littleProximalPosition, wristPosition, middleProximalPosition;
 	
 	//joint velocities
 	const int averageWindow = 180;
@@ -68,7 +68,7 @@ public class Spellcasting : MonoBehaviour {
 		var littleProximalJoint = hand.GetJoint(XRHandJointID.LittleProximal);
 		var wristJoint = hand.GetJoint(XRHandJointID.Wrist);
 		var middleProximalJoint = hand.GetJoint(XRHandJointID.MiddleProximal);
-		var middleDistalJoint = hand.GetJoint(XRHandJointID.MiddleDistal);
+		var middleIntermediateJoint = hand.GetJoint(XRHandJointID.MiddleIntermediate);
 		
 		if(palmJoint.TryGetPose(out Pose palmPose)) {
 			palmPosition = palmPose.GetTransformedBy(xrOriginPose).position;
@@ -87,9 +87,6 @@ public class Spellcasting : MonoBehaviour {
 		}
 		if(middleProximalJoint.TryGetPose(out Pose middleProximalPose)) {
 			middleProximalPosition = middleProximalPose.GetTransformedBy(xrOriginPose).position;
-		}
-		if(middleDistalJoint.TryGetPose(out Pose middleDistalPose)) {
-			middleDistalPosition = middleDistalPose.GetTransformedBy(xrOriginPose).position;
 		}
 		
 		//joint velocities
@@ -143,17 +140,18 @@ public class Spellcasting : MonoBehaviour {
 		
 		//lightning check
 		if(lightningActive) {
-			Vector3 one = middleDistalPosition - middleProximalPosition,
-					two = littleProximalPosition - middleProximalPosition;
-			Vector3 forw = (left ? Vector3.Cross(two, one) : Vector3.Cross(one, two)).normalized;
+			Vector3 forw = (middleProximalPosition - palmPosition).normalized;
+			
+			Vector3 pos = middleProximalPosition;
+			Quaternion rot = Quaternion.LookRotation(forw, Vector3.up);
 			
 			if(lightning != null) {
 				//update position if spawned
-				lightning.transform.position = middleProximalPosition + 2.5f * forw;
+				lightning.transform.SetPositionAndRotation(pos, rot);
 			}
 			else {
 				//spawn if unspawned
-				lightning = Instantiate(lightningPrefab, middleProximalPosition + 2.5f * forw, Quaternion.LookRotation(forw, Vector3.up));
+				lightning = Instantiate(lightningPrefab, pos, rot);
 			}
 		}
 	}

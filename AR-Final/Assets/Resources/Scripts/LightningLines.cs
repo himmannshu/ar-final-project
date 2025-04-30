@@ -19,7 +19,7 @@ public class LightningLines : MonoBehaviour {
 	
 	void Update() {
 		toEnd = gameObject.transform.rotation * Vector3.forward;
-		start = gameObject.transform.position - 2.5f * toEnd;
+		start = gameObject.transform.position;
 		
 		Vector3 point = start;
 		for(int i = 0; i < points; i++) {

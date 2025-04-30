@@ -18,7 +18,7 @@ public class EnemyDamage : MonoBehaviour {
 	int health, continuousDamage, tick;
 	bool dead = false;
 	
-	float initialScale, initialRotx;
+	float initialScale, initialRotx, initialRoty, initialRotz;
 	float elapsed, animationDuration = 1.0f;
 	
 	void Start() {
@@ -26,6 +26,7 @@ public class EnemyDamage : MonoBehaviour {
 		camera = GameObject.Find("Main Camera");
 		
 		//health and damage
+		dead = false;
 		health = baseHealth;
 		tick = 0;
 		
@@ -34,19 +35,42 @@ public class EnemyDamage : MonoBehaviour {
 		initialScale = transform.localScale.x;
 	}
 	
-	void Update() {
-		if(dead) {
-			//animate shrinking
-			float s = animationScale(elapsed / animationDuration) * initialScale;
-			transform.localScale = new Vector3(s, s, s);
+	void FixedUpdate() {
+		if(dead) return;
+		
+		//destroy enemy
+		if(health <= 0) {
+			if(deathEffect != null) {
+				deathEffect.go();
+			}
 			
-			//animation rotation
-			//Vector3 axis = Vector3.Cross(player.position - transform.position, Vector3.up).normalized;
-			float a = animationRotation(elapsed / animationDuration);
-			transform.localRotation = Quaternion.Euler(initialRotx - a, transform.localRotation.y, transform.localRotation.z);
+			dead = true;
 			
-			elapsed += Time.deltaTime;
+			initialRotx = transform.rotation.x;
+			initialRoty = transform.rotation.y;
+			initialRotz = transform.rotation.z;
+			
+			GameManager.Instance.AddScore(score);
+			
+			Destroy(gameObject, 1f);
+			
+			//gameObject.SetActive(false);
 		}
+	}
+	
+	void Update() {
+		if(!dead) return;
+		
+		//animate shrinking
+		float s = animationScale(elapsed / animationDuration) * initialScale;
+		transform.localScale = new Vector3(s, s, s);
+		
+		//animation rotation
+		//Vector3 axis = Vector3.Cross(player.position - transform.position, Vector3.up).normalized;
+		float a = animationRotation(elapsed / animationDuration);
+		transform.rotation = Quaternion.Euler(initialRotx - a, initialRoty, initialRotz);
+		
+		elapsed += Time.deltaTime;
 	}
 	
 	void OnCollisionEnter(Collision collision) {
@@ -90,19 +114,6 @@ public class EnemyDamage : MonoBehaviour {
 			//spawn damage number thing
 			spawnDamageNumber(collision.GetContact(0).point, damage);
 		}
-		
-		//destroy enemy
-		if(health <= 0) {
-			if(deathEffect != null) {
-				deathEffect.go();
-			}
-			
-			dead = true;
-			initialRotx = transform.localRotation.x;
-			GameManager.Instance.AddScore(score);
-			Destroy(gameObject, 1f);
-			//gameObject.SetActive(false);
-		}
 	}
 	
 	void OnCollisionStay(Collision collision) {
@@ -110,7 +121,7 @@ public class EnemyDamage : MonoBehaviour {
 		
 		GameObject other = collision.gameObject;
 		
-		if(tick-- <= 0 && other.tag == "Lightning") {
+		if(--tick <= 0 && other.tag == "Lightning") {
 			//reduce health
 			int damage = (int)(other.GetComponent<LightningScript>().damage * (1 + lightningWeakness));
 			health -= damage;

@@ -275,7 +275,7 @@ MonoBehaviour:
   baseHealth: 90
   score: 3
   continuousDamageTickDelay: 15
-  fireballWeakness: 0
+  fireballWeakness: 0.2
   railbeamWeakness: 0
   lightningWeakness: 0.7
 --- !u!114 &3137801465733155767

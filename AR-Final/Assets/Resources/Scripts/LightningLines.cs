@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LightningLines : MonoBehaviour {
 	public int points = 33;
+	public GameObject light;
 	
 	LineRenderer lr;
 	Vector3 start, toEnd;
@@ -27,5 +28,7 @@ public class LightningLines : MonoBehaviour {
 			
 			point = start + (5f / points) * (i * toEnd) + (new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), Random.Range(-1, 1))).normalized * Random.Range(0.01f, 0.3f);
 		}
+		
+		light.transform.position = start + Random.Range(0, 5) * toEnd;
 	}
 }

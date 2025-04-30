@@ -3012,7 +3012,7 @@ MonoBehaviour:
   spawner: {fileID: 1714446319}
   RollingBallSpawner: {fileID: 1714446321}
   splitterSpawner: {fileID: 1714446322}
-  spawnInterval: 10
+  spawnInterval: 8
   riseHeight: 1
   riseDuration: 1
 --- !u!114 &1714446321

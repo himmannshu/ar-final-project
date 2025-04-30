@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RailbeamScript : MonoBehaviour {
-	public int damage = 80,
+	public int damage = 70,
 			   cooldown = 240;
 	
 	MeshRenderer mr;

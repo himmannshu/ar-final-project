@@ -834,8 +834,8 @@ MonoBehaviour:
   ScoreText: {fileID: 1238560254}
   HealthText: {fileID: 814082852}
   XROrigin: {fileID: 63624878}
-  camera: {fileID: 650481140}
   Player: {fileID: 1258247158}
+  left: 1
 --- !u!1 &573739374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1927,6 +1927,7 @@ MonoBehaviour:
   canvas: {fileID: 2109117090}
   TimerText: {fileID: 1244554611}
   XROrigin: {fileID: 63624878}
+  left: 0
 --- !u!1 &814082850
 GameObject:
   m_ObjectHideFlags: 0

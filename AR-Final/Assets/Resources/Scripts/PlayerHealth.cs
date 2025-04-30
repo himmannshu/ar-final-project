@@ -10,6 +10,8 @@ public class PlayerHealth : MonoBehaviour
     private Dictionary<string, float> damageSources = new Dictionary<string, float>();
     public UnityEvent<float, float> OnHealthChanged; 
     public UnityEvent OnPlayerDeath; 
+    public GameObject bloodPrefab; 
+    public OVRCameraRig cameraRig;
     void Start()
     {
         Debug.Log("Player Health Initialized: " + MaxHealth);
@@ -40,5 +42,6 @@ public class PlayerHealth : MonoBehaviour
                 OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
             }
         }
+        var blood = Instantiate(bloodPrefab, cameraRig.centerEyeAnchor.position, Quaternion.identity);
     }
 }

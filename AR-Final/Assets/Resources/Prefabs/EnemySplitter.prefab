@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2237681676045037604}
-  speed: 0.35
+  speed: 0.3
 --- !u!54 &6878491350921251855
 Rigidbody:
   m_ObjectHideFlags: 0

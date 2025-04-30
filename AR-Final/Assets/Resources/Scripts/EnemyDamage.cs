@@ -16,14 +16,42 @@ public class EnemyDamage : MonoBehaviour {
 	
 	GameObject camera;
 	int health, continuousDamage, tick;
+	bool dead = false;
+	
+	float initialScale;
+	float elapsed, animationDuration = 1.0f;
 	
 	void Start() {
+		//text orientation
 		camera = GameObject.Find("Main Camera");
+		
+		//health and damage
 		health = baseHealth;
 		tick = 0;
+		
+		//death shrink animation
+		elapsed = 0;
+		initialScale = transform.localScale.x;
+	}
+	
+	void Update() {
+		if(dead) {
+			//animate shrinking
+			float s = animationScale(elapsed / animationDuration) * initialScale;
+			transform.localScale = new Vector3(s, s, s);
+			
+			//animation rotation
+			//Vector3 axis = Vector3.Cross(player.position - transform.position, Vector3.up).normalized;
+			float a = animationRotation(elapsed / animationDuration);
+			transform.localRotation = Quaternion.Euler(a, 0, 0);
+			
+			elapsed += Time.deltaTime;
+		}
 	}
 	
 	void OnCollisionEnter(Collision collision) {
+		if(dead) return;
+		
 		GameObject other = collision.gameObject;
 		
 		if(other.tag == "Railbeam") {
@@ -69,13 +97,16 @@ public class EnemyDamage : MonoBehaviour {
 				deathEffect.go();
 			}
 			
+			dead = true;
 			GameManager.Instance.AddScore(score);
-			Destroy(gameObject, 0.1f);
+			Destroy(gameObject, 1f);
 			//gameObject.SetActive(false);
 		}
 	}
 	
 	void OnCollisionStay(Collision collision) {
+		if(dead) return;
+		
 		GameObject other = collision.gameObject;
 		
 		if(tick-- <= 0 && other.tag == "Lightning") {
@@ -97,5 +128,16 @@ public class EnemyDamage : MonoBehaviour {
 			point,
 			Quaternion.LookRotation(point - camera.transform.position, Vector3.up));
 		damageText.GetComponent<TextMeshPro>().SetText($"{damage}");
+	}
+	
+	float animationScale(float x) {
+		if(x < 0.5f) return 1;
+		if(x < 1.0f) return 1 - x;
+		return 0;
+	}
+	
+	float animationRotation(float x) {
+		if(x < 0.5f) return 90 * x;
+		return 90;
 	}
 }

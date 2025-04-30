@@ -2604,16 +2604,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UseOptimizedControls: 0
-  m_MetaQuestLeftHandMesh: {fileID: 919132149155446097, guid: bf7151579c38e2a44be94ba8773876c1,
+  m_MetaQuestLeftHandMesh: {fileID: 919132149155446097, guid: 732dddec33f6868478b22973f2e99717,
     type: 3}
-  m_MetaQuestRightHandMesh: {fileID: 919132149155446097, guid: 56186ccf27ad7864681108ed88349071,
+  m_MetaQuestRightHandMesh: {fileID: 919132149155446097, guid: d80934eeb0ca4714990d999cef745e2e,
     type: 3}
-  m_AndroidXRLeftHandMesh: {fileID: 919132149155446097, guid: 7eff605df5fc69141bad762b74fb9228,
+  m_AndroidXRLeftHandMesh: {fileID: 919132149155446097, guid: 9b8cda06797a3314fa5cf76d588c6e32,
     type: 3}
-  m_AndroidXRRightHandMesh: {fileID: 919132149155446097, guid: 49090752ee8bba242ad64a291905ee10,
+  m_AndroidXRRightHandMesh: {fileID: 919132149155446097, guid: a49bab4b0abac3848bc9244fbb5bc509,
     type: 3}
-  m_HandMeshMaterial: {fileID: -2505642851634945670, guid: f396e3429a4864fc2ad497cb3ce5fe2c,
-    type: 3}
+  m_HandMeshMaterial: {fileID: 2100000, guid: f149d5b8c126af34994bb6ee4431aa2d, type: 2}
   m_DrawMeshes: 1
   m_DebugDrawPrefab: {fileID: 6507399986997092475, guid: 254b742d65a15d14b9df756ae77de868,
     type: 3}

@@ -60,7 +60,9 @@ public class PlayerStats : MonoBehaviour
 		}
        
         Vector3 worldWristPosition = xrOriginPose.rotation * wristPosition + xrOriginPose.position;
+        Quaternion rotation = Quaternion.LookRotation(worldWristPosition, Vector3.up);
         canvas.transform.position = worldWristPosition;
+        canvas.transform.rotation = rotation;
     }
 
     private void UpdateScoreUI()

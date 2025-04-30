@@ -18,7 +18,7 @@ public class EnemyDamage : MonoBehaviour {
 	int health, continuousDamage, tick;
 	bool dead = false;
 	
-	float initialScale;
+	float initialScale, initialRotx;
 	float elapsed, animationDuration = 1.0f;
 	
 	void Start() {
@@ -43,7 +43,7 @@ public class EnemyDamage : MonoBehaviour {
 			//animation rotation
 			//Vector3 axis = Vector3.Cross(player.position - transform.position, Vector3.up).normalized;
 			float a = animationRotation(elapsed / animationDuration);
-			transform.localRotation = Quaternion.Euler(a, 0, 0);
+			transform.localRotation = Quaternion.Euler(initialRotx - a, transform.localRotation.y, transform.localRotation.z);
 			
 			elapsed += Time.deltaTime;
 		}
@@ -98,6 +98,7 @@ public class EnemyDamage : MonoBehaviour {
 			}
 			
 			dead = true;
+			initialRotx = transform.localRotation.x;
 			GameManager.Instance.AddScore(score);
 			Destroy(gameObject, 1f);
 			//gameObject.SetActive(false);

@@ -2967,8 +2967,6 @@ MonoBehaviour:
   OnPlayerDeath:
     m_PersistentCalls:
       m_Calls: []
-  bloodPrefab: {fileID: 0}
-  cameraRig: {fileID: 0}
 --- !u!82 &1258247159
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2979,8 +2977,8 @@ AudioSource:
   m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0a32f30288ab34d1790f180dc46f2264, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: d2bf2bb740ecd4770a73164d498ed76b, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

@@ -11,15 +11,9 @@ public class Splitting : DeathEffect {
 	public override void go() {
 		if(splitsRemaining-- <= 0) return;
 		
-		StartCoroutine(split());
-	}
-	
-	IEnumerator split() {
-		yield return new WaitForSeconds(1);
-		
-		Vector3 leftward = (gameObject.transform.localRotation * Vector3.forward).normalized;
-		GameObject left  = Instantiate(gameObject, gameObject.transform.localPosition +  0.15f * leftward, gameObject.transform.localRotation);
-		GameObject right = Instantiate(gameObject, gameObject.transform.localPosition + -0.15f * leftward, gameObject.transform.localRotation);
+		Vector3 leftward = (gameObject.transform.rotation * Vector3.forward).normalized;
+		GameObject left  = Instantiate(gameObject, gameObject.transform.position +  0.3f * leftward, gameObject.transform.rotation);
+		GameObject right = Instantiate(gameObject, gameObject.transform.position + -0.3f * leftward, gameObject.transform.rotation);
 		left.GetComponent<Splitting>().setSplitsRemaining(splitsRemaining);
 		right.GetComponent<Splitting>().setSplitsRemaining(splitsRemaining);
 	}

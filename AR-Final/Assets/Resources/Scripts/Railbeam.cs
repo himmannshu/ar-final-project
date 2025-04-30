@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RailbeamScript : MonoBehaviour {
-	public int damage = 120,
+	public int damage = 80,
 			   cooldown = 240;
 	
 	MeshRenderer mr;
@@ -27,6 +27,7 @@ public class RailbeamScript : MonoBehaviour {
 		
 		//destroy the collider before the entire object
 		Destroy(gameObject.GetComponent<CapsuleCollider>(), 0.05f);
+		Destroy(gameObject.GetComponent<Rigidbody>(), 0.05f);
 		Destroy(gameObject, animationDuration);
 		
 		//Destroy(gameObject, 0.05f);

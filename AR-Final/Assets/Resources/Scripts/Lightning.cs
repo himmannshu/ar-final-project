@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LightningScript : MonoBehaviour {
-	public int damage = 7;
+	public int damage = 15;
 }

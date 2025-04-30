@@ -8,9 +8,9 @@ public class PlayerStats : MonoBehaviour
     public Canvas canvas;
     public TextMeshProUGUI ScoreText;     
     public TextMeshProUGUI HealthText;
-    public GameObject XROrigin;
+    public GameObject XROrigin, camera;
     public PlayerHealth Player;
-    private Vector3 wristPosition;
+    private Vector3 wristPosition, palmPosition;
     private Pose xrOriginPose;
     
     void Start()
@@ -54,13 +54,18 @@ public class PlayerStats : MonoBehaviour
     void UpdatePlayerStats(XRHand hand)
     {
         var wristJoint = hand.GetJoint(XRHandJointID.Wrist);
+        var palmJoint = hand.GetJoint(XRHandJointID.Palm);
 
         if(wristJoint.TryGetPose(out Pose wristPose)) {
 			wristPosition = wristPose.GetTransformedBy(xrOriginPose).position;
 		}
+        if(palmJoint.TryGetPose(out Pose palmPose)) {
+			palmPosition = palmPose.GetTransformedBy(xrOriginPose).position;
+		}
        
-        Vector3 worldWristPosition = xrOriginPose.rotation * wristPosition + xrOriginPose.position;
-        Quaternion rotation = Quaternion.LookRotation(worldWristPosition, Vector3.up);
+        //Vector3 worldWristPosition = xrOriginPose.rotation * wristPosition + xrOriginPose.position;
+		Vector3 worldWristPosition = wristPosition + 0.04f * Vector3.up;
+        Quaternion rotation = Quaternion.LookRotation(worldWristPosition - camera.transform.position, (wristPosition - palmPosition).normalized);
         canvas.transform.position = worldWristPosition;
         canvas.transform.rotation = rotation;
     }

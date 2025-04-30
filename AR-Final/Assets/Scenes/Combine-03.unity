@@ -834,6 +834,7 @@ MonoBehaviour:
   ScoreText: {fileID: 1238560254}
   HealthText: {fileID: 814082852}
   XROrigin: {fileID: 63624878}
+  camera: {fileID: 650481140}
   Player: {fileID: 1258247158}
 --- !u!1 &573739374
 GameObject:
@@ -2962,6 +2963,8 @@ MonoBehaviour:
   OnPlayerDeath:
     m_PersistentCalls:
       m_Calls: []
+  bloodPrefab: {fileID: 0}
+  cameraRig: {fileID: 0}
 --- !u!1 &1279239648 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a,
@@ -3464,7 +3467,7 @@ MonoBehaviour:
   spawner: {fileID: 1714446319}
   RollingBallSpawner: {fileID: 1714446321}
   splitterSpawner: {fileID: 1714446322}
-  spawnInterval: 10
+  spawnInterval: 9
   riseHeight: 1
   riseDuration: 1
 --- !u!114 &1714446321

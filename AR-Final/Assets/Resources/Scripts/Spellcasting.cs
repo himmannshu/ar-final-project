@@ -4,24 +4,25 @@ using UnityEngine.XR.Management;
 
 public class Spellcasting : MonoBehaviour {
 	public bool left;
-	public GameObject xrOrigin, camera, fireballPrefab, railbeamPrefab;
+	public GameObject xrOrigin, camera, fireballPrefab, railbeamPrefab, lightningPrefab;
 	public float minimumVelocity = 0.03f;
 	
-	const int averageWindow = 180;
 	
+	//spell details
+	bool fireballActive = false,
+		 railgunActive = false,
+		 lightningActive = false;
+	GameObject lightning = null;
+	
+	//joint positions
 	Pose xrOriginPose;
+	Vector3 palmPosition, indexTipPosition, indexProximalPosition, littleProximalPosition, wristPosition, middleProximalPosition;
 	
-	//for fireball
-	bool fireballActive = false;
-	Vector3 palmPosition = new Vector3(0f, 0f, 0f),
-			palmVelocity = new Vector3(0f, 0f, 0f);
+	//joint velocities
+	const int averageWindow = 180;
+	Vector3 palmVelocity = new Vector3(0f, 0f, 0f);
 	Vector3[] palmVelocities = new Vector3[averageWindow];
 	int pvi = 0;
-	
-	//for railgun
-	bool railgunActive = false;
-	Vector3 indexTipPosition = new Vector3(0f, 0f, 0f),
-			indexProximalPosition = new Vector3(0f, 0f, 0f);
 	
 	
 	void Start() {
@@ -60,13 +61,35 @@ public class Spellcasting : MonoBehaviour {
 		//https://docs.unity3d.com/Packages/com.unity.xr.hands@1.1/api/UnityEngine.XR.Hands.XRHand.html#UnityEngine_XR_Hands_XRHand_GetJoint_UnityEngine_XR_Hands_XRHandJointID_
 		//https://docs.unity3d.com/Packages/com.unity.xr.hands@1.1/api/UnityEngine.XR.Hands.XRHandJoint.html#UnityEngine_XR_Hands_XRHandJoint_TryGetPose_UnityEngine_Pose__
 		
-		//for fireball
+		//joint positions
 		var palmJoint = hand.GetJoint(XRHandJointID.Palm);
+		var indexTipJoint = hand.GetJoint(XRHandJointID.IndexTip);
+		var indexProximalJoint = hand.GetJoint(XRHandJointID.IndexProximal);
+		var littleProximalJoint = hand.GetJoint(XRHandJointID.LittleProximal);
+		var wristJoint = hand.GetJoint(XRHandJointID.Wrist);
+		var middleProximalJoint = hand.GetJoint(XRHandJointID.MiddleProximal);
+		var middleIntermediateJoint = hand.GetJoint(XRHandJointID.MiddleIntermediate);
 		
 		if(palmJoint.TryGetPose(out Pose palmPose)) {
 			palmPosition = palmPose.GetTransformedBy(xrOriginPose).position;
 		}
+		if(indexTipJoint.TryGetPose(out Pose indexTipPose)) {
+			indexTipPosition = indexTipPose.GetTransformedBy(xrOriginPose).position;
+		}
+		if(indexProximalJoint.TryGetPose(out Pose indexProximalPose)) {
+			indexProximalPosition = indexProximalPose.GetTransformedBy(xrOriginPose).position;
+		}
+		if(littleProximalJoint.TryGetPose(out Pose littleProximalPose)) {
+			littleProximalPosition = littleProximalPose.GetTransformedBy(xrOriginPose).position;
+		}
+		if(wristJoint.TryGetPose(out Pose wristPose)) {
+			wristPosition = wristPose.GetTransformedBy(xrOriginPose).position;
+		}
+		if(middleProximalJoint.TryGetPose(out Pose middleProximalPose)) {
+			middleProximalPosition = middleProximalPose.GetTransformedBy(xrOriginPose).position;
+		}
 		
+		//joint velocities
 		if(palmJoint.TryGetLinearVelocity(out Vector3 palmLinearVelocity)) {
 			//keep track of past velocities...
 			palmVelocities[pvi++] = palmLinearVelocity;
@@ -88,23 +111,22 @@ public class Spellcasting : MonoBehaviour {
 			//shoot only one
 			fireballActive = false;
 			
+			//spawn fireball
 			GameObject fireball = Instantiate(fireballPrefab, palmPosition, Quaternion.LookRotation(palmVelocity, Vector3.up));
+			
+			//get palm normal vector
+			Vector3 one = indexProximalPosition - palmPosition,
+					two = littleProximalPosition - palmPosition;
+			Vector3 palmNormal = (left ? Vector3.Cross(one, two) : Vector3.Cross(two, one)).normalized,
+					wristToPalm = (palmPosition - wristPosition).normalized;
+			Vector3 shootDirection = /*Quaternion.AngleAxis(10, Vector3.Cross(palmNormal, wristToPalm)) * */ (wristToPalm + palmNormal).normalized;
+			
+			//set fireball speed
 			float baseSpeed = fireball.GetComponent<FireballScript>().baseSpeed;
 			Rigidbody rb = fireball.GetComponent<Rigidbody>();
-			//rb.AddForce(palmVelocity * baseSpeed, ForceMode.VelocityChange);
-			rb.AddForce(baseSpeed * palmVelocity.normalized, ForceMode.VelocityChange);
-		}
-		
-		
-		//for railgun
-		var indexTipJoint = hand.GetJoint(XRHandJointID.IndexTip);
-		var indexProximalJoint = hand.GetJoint(XRHandJointID.IndexProximal);
-		
-		if(indexTipJoint.TryGetPose(out Pose indexTipPose)) {
-			indexTipPosition = indexTipPose.GetTransformedBy(xrOriginPose).position;
-		}
-		if(indexProximalJoint.TryGetPose(out Pose indexProximalPose)) {
-			indexProximalPosition = indexProximalPose.GetTransformedBy(xrOriginPose).position;
+			
+			rb.AddForce(baseSpeed * shootDirection, ForceMode.VelocityChange);
+			//rb.AddForce(baseSpeed * palmVelocity.normalized, ForceMode.VelocityChange);
 		}
 		
 		//railgun check
@@ -115,6 +137,23 @@ public class Spellcasting : MonoBehaviour {
 			Vector3 forw = (indexTipPosition - indexProximalPosition).normalized;
 			GameObject railbeam = Instantiate(railbeamPrefab, indexTipPosition + 100f * forw, Quaternion.LookRotation(forw, Vector3.up));
 		}
+		
+		//lightning check
+		if(lightningActive) {
+			Vector3 forw = (middleProximalPosition - palmPosition).normalized;
+			
+			Vector3 pos = middleProximalPosition;
+			Quaternion rot = Quaternion.LookRotation(forw, Vector3.up);
+			
+			if(lightning != null) {
+				//update position if spawned
+				lightning.transform.SetPositionAndRotation(pos, rot);
+			}
+			else {
+				//spawn if unspawned
+				lightning = Instantiate(lightningPrefab, pos, rot);
+			}
+		}
 	}
 	
 	public void ActivateFireball() { fireballActive = true; }
@@ -122,4 +161,11 @@ public class Spellcasting : MonoBehaviour {
 	
 	public void ActivateRailgun() { railgunActive = true; }
 	public void DeactivateRailgun() { railgunActive = false; }
+	
+	public void ActivateLightning() { lightningActive = true; }
+	public void DeactivateLightning() {
+		lightningActive = false;
+		Destroy(lightning);
+		lightning = null;
+	}
 }

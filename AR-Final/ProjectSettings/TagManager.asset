@@ -10,6 +10,8 @@ TagManager:
   - Railbeam
   - Explosion
   - Enemy2
+  - EnemySplitter
+  - Lightning
   layers:
   - Default
   - TransparentFX

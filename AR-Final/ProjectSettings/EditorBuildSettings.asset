@@ -32,9 +32,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/old/PlainGestureTest.unity
     guid: a5965e842a779c241a3f969ac2662f09
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Combine-02.unity
     guid: d1a6a079f5ff5c342a5eff3e6929ec64
+  - enabled: 1
+    path: Assets/Scenes/Combine-03.unity
+    guid: 68099024269f5b6459d60d15a610f7d5
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 3341dce34616d41d8a0688236facc506,
       type: 2}

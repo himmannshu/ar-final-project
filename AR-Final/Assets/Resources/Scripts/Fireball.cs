@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireballScript : MonoBehaviour {
 	public GameObject explosionPrefab;
-	public int damage = 60,
+	public int damage = 45,
 			   cooldown = 60;
 	public float baseSpeed = 8f;
 	
@@ -40,7 +40,7 @@ public class FireballScript : MonoBehaviour {
 	}
 	
 	float animation(float x) {
-		if(x < 1) return 1 - Mathf.Sin((0.25f * animationDuration) * x * 360) * (1 - x) * 0.1f;
+		if(x < 1) return 1 - Mathf.Sin(x * 360) * (1 - x) * 0.1f;
 		else return 0f;
 	}
 	

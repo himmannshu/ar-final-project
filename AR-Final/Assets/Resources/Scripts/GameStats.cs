@@ -1,0 +1,78 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.XR.Hands;
+using UnityEngine.XR.Management;
+
+public class GameStats : MonoBehaviour
+{
+    public Canvas canvas;
+    public TextMeshProUGUI TimerText;    
+    public GameObject XROrigin;
+    private Vector3 wristPosition;
+    private Pose xrOriginPose;
+    
+    void Start()
+    {
+		//https://docs.unity3d.com/Packages/com.unity.xr.hands@1.1/manual/hand-data/xr-hand-access-data.html
+		XRHandSubsystem m_Subsystem = 
+			XRGeneralSettings.Instance?
+			.Manager?
+			.activeLoader?
+			.GetLoadedSubsystem<XRHandSubsystem>();
+
+		if(m_Subsystem != null) {
+			m_Subsystem.updatedHands += OnHandUpdate;
+		}
+		
+		//for pose transform
+		xrOriginPose = new Pose(XROrigin.transform.position, XROrigin.transform.rotation);    
+    }
+
+    void Update()
+    {
+      if (GameManager.Instance != null && !GameManager.Instance.IsGameOver)
+        {
+            UpdateTimerUI();
+        }  
+    }
+    void OnHandUpdate(XRHandSubsystem subsystem,
+                  XRHandSubsystem.UpdateSuccessFlags updateSuccessFlags,
+                  XRHandSubsystem.UpdateType updateType)
+    {
+        switch(updateType) {
+            case XRHandSubsystem.UpdateType.Dynamic:
+                //Update game logic that uses hand data
+                
+                UpdateGameStats(subsystem.rightHand);
+                
+                break;
+            case XRHandSubsystem.UpdateType.BeforeRender: 
+                //Update visual objects that use hand data
+                break;
+        }
+    }
+
+    void UpdateGameStats(XRHand hand)
+    {
+        var wristJoint = hand.GetJoint(XRHandJointID.Wrist);
+
+        if(wristJoint.TryGetPose(out Pose wristPose)) {
+			wristPosition = wristPose.GetTransformedBy(xrOriginPose).position;
+		}
+       
+        Vector3 worldWristPosition = xrOriginPose.rotation * wristPosition + xrOriginPose.position;
+        canvas.transform.position = worldWristPosition;
+    }
+
+    private void UpdateTimerUI()
+    {
+        if (TimerText != null)
+        {
+            float timer = GameManager.Instance.Timer;
+            float minutes = Mathf.FloorToInt(timer / 60);
+            float seconds = Mathf.FloorToInt(timer % 60);
+            TimerText.text = $"Time: {minutes:00}:{seconds:00}";
+        }
+    }
+
+}

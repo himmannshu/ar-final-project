@@ -6,6 +6,7 @@ public class FloorSpawnner : MonoBehaviour
 {
     public FindSpawnPositions spawner;
     public FindSpawnPositions RollingBallSpawner;
+    public FindSpawnPositions splitterSpawner;
     public float spawnInterval = 10f;
     public float riseHeight = 1f;
     public float riseDuration = 1f;
@@ -17,12 +18,12 @@ public class FloorSpawnner : MonoBehaviour
 
     private IEnumerator SpawnLoop()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         while (true)
         {
             SpawnOne();
-            yield return new WaitForSeconds(spawnInterval);
+            yield return new WaitForSecondsRealtime(spawnInterval);
         }
     }
 
@@ -35,6 +36,10 @@ public class FloorSpawnner : MonoBehaviour
         RollingBallSpawner.SpawnAmount = 1;
         RollingBallSpawner.StartSpawn();
         RollingBallSpawner.SpawnAmount = 0;
+		
+        splitterSpawner.SpawnAmount = 1;
+        splitterSpawner.StartSpawn();
+        splitterSpawner.SpawnAmount = 0;
 
         if (spawner.transform.childCount > 0)
         {
@@ -44,7 +49,14 @@ public class FloorSpawnner : MonoBehaviour
 
         if (RollingBallSpawner.transform.childCount > 0)
         {
+
             Transform spawned = RollingBallSpawner.transform.GetChild(RollingBallSpawner.transform.childCount - 1);
+            StartCoroutine(RiseFromFloor(spawned.gameObject));
+        }
+		
+        if (splitterSpawner.transform.childCount > 0)
+        {
+            Transform spawned = splitterSpawner.transform.GetChild(splitterSpawner.transform.childCount - 1);
             StartCoroutine(RiseFromFloor(spawned.gameObject));
         }
     }
@@ -52,8 +64,7 @@ public class FloorSpawnner : MonoBehaviour
     private IEnumerator RiseFromFloor(GameObject obj)
     {
         Vector3 startPos = obj.transform.position - 1.1f * Vector3.up * riseHeight;
-        obj.transform.position = startPos; // Set the initial position below the floor
-
+        obj.transform.position = startPos;
         Vector3 targetPos = startPos + Vector3.up * riseHeight;
         float elapsed = 0f;
 

@@ -41,13 +41,13 @@ public class PlayerHealth : MonoBehaviour
                 }                
                 OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
             }
+			if (_soundCoroutine == null)
+			{
+				audioSource.enabled = true; 
+				_soundCoroutine = StartCoroutine(SelfDestruct(1f));
+			}
         }
-        if (_soundCoroutine == null)
-        {
-            audioSource.enabled = true; 
-            _soundCoroutine = StartCoroutine(SelfDestruct(1f));
-        }
-        audioSource.enabled = true;
+        //audioSource.enabled = true;
     }
 
     IEnumerator SelfDestruct(float time)

@@ -268,7 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 8102916396787156511, guid: 5d0d1fff37c469c47a473df0f5e502a0,
     type: 3}
-  damage: 45
+  damage: 60
   cooldown: 60
   baseSpeed: 5
 --- !u!82 &546914293727441068

@@ -10,7 +10,9 @@ Run the following in a terminal with git installed:
 
 ### 2. Import the project into Unity Hub
 
-**//  how to open from disk**
+Click on the `Add` button and select `Add project from disk`.
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/0a24fdb2-6269-4871-9292-276071232e47" />
+
 
 
 ### 3. Open the Unity project
@@ -21,7 +23,7 @@ Run the following in a terminal with git installed:
 
 ### 5. Ensure the following packages are installed:
 
-**//  how to navigate to package manager**
+`Window -> Package Manager`
 - Meta MR Utility Kit
 - Meta XR Core SDK
 - Meta XR Interaction SDK
@@ -32,12 +34,14 @@ Run the following in a terminal with git installed:
 
 ### 6. Switch the build platform to Android
 
-**//  how to navigate to build and run**
-
+* Navigate to build settings (`File -> Build Settings`)
+* Select Android from the listed platforms
+* Click on the switch platforms
 
 ### 7. Ensure the following feature groups are enabled in the OpenXR player settings for Android:
 
-**//  how to navigate here**
+You can access the player settings from the build settings menu. 
+
 - Hand Interaction Poses
 - Hand Tracking Subsystem
 - Meta Hand Tracking Aim
@@ -49,7 +53,9 @@ Run the following in a terminal with git installed:
 This will require a headset in developer mode to be physically connected to the PC.
 An "Allow Debugging" prompt may appear in the headset before the headset is listed as connected on the PC-- make sure to allow it.
 
-**//  how to navigate to build and run**
+> **Note:**  
+> Make sure that you have the `Combine-03` scene checked in the build settings menu. 
+
 
 
 ## Package Utilities

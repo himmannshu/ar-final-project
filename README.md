@@ -64,7 +64,5 @@ An "Allow Debugging" prompt may appear in the headset before the headset is list
 |-------------------------|-----------------------------------------------------------------------|
 | Meta MR Utility Kit     | Physical awareness (for finding spawn locations and enemy navigation) |
 | Meta XR Core SDK        | Camera tracking, passthrough, augmentation                            |
-| Meta XR Interaction SDK | **??** |
 | XR Hands                | Hand joints and pose detection                                        |
-| XR Interaction Toolkit  | **??** |
 
